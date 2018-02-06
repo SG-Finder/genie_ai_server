@@ -25,6 +25,7 @@
 		<!--<start-class>com.finder.genie_ai.GenieAiApplication</start-class>-->
 	</properties>
 
+
 	<dependencies>
 		<!-- core -->
 		<dependency>
