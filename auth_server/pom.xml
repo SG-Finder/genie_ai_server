@@ -6,7 +6,7 @@
 	<groupId>com.finder</groupId>
 	<artifactId>genie_ai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>genie_ai</name>
 	<description>finder geine_ai auth server project</description>
