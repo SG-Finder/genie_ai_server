@@ -23,7 +23,6 @@ public class GenieAiApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		//System.getProperties().put("server.port", 8082);
 		SpringApplication.run(GenieAiApplication.class, args);
 	}
 

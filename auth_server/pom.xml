@@ -129,7 +129,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<finalName>ROOT</finalName>
+		<finalName>genie_ai_auth</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
