@@ -6,7 +6,7 @@
 	<groupId>com.finder</groupId>
 	<artifactId>genie_ai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>genie_ai</name>
 	<description>finder geine_ai auth server project</description>
@@ -51,6 +51,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- database -->
@@ -121,7 +127,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<finalName>genie-ai-auth-executable-jar</finalName>
+		<finalName>genie-ai-auth-executable-war</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
