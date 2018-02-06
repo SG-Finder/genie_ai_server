@@ -26,6 +26,19 @@
 		<!--<start-class>com.finder.genie_ai.GenieAiApplication</start-class>-->
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<!-- core -->
 		<dependency>
