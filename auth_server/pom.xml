@@ -128,7 +128,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<finalName>genie-ai-auth-executable-war</finalName>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
