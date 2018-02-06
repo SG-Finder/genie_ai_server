@@ -16,6 +16,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 public class GenieAiApplication {
 
 	public static void main(String[] args) {
+		System.getProperties().put("server.port", 8090);
 		SpringApplication.run(GenieAiApplication.class, args);
 	}
 
