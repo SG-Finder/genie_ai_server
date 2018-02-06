@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @Configuration
-@EnableAutoConfiguration
 @ComponentScan
+@EnableAutoConfiguration
 @EntityScan(
 		basePackages = { "com.finder.genie_ai.model" },
 		basePackageClasses = {Jsr310JpaConverters.class})
