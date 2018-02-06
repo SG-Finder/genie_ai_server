@@ -133,6 +133,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<!-- 어떤 resource 폴더 경로 -->
+							<directory>src/main/resources</directory>
+							<!-- resource 파일내의 빌드 할 파일 타입 -->
+							<includes>
+								<include>*.properties</include>
+								<include>*.xml</include>
+							</includes>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+					<!-- 빌드할 경로 -->
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
