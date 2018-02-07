@@ -22,7 +22,8 @@ public class RedisConfig {
     @Bean
     public JedisPoolConfig jedisPoolConfig() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxTotal(5);
+        jedisPoolConfig.setMaxIdle(30);
+        jedisPoolConfig.setMinIdle(10);
         jedisPoolConfig.setTestOnBorrow(true);
         jedisPoolConfig.setTestOnReturn(true);
         return jedisPoolConfig;
