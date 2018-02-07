@@ -6,7 +6,7 @@
 	<groupId>com.finder</groupId>
 	<artifactId>genie_ai</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>genie_ai</name>
 	<description>finder game main api server</description>
@@ -35,12 +35,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -113,6 +107,8 @@
 	</dependencies>
 
 	<build>
+		<defaultGoal>install</defaultGoal>
+		<finalName>genie_ai_main</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
