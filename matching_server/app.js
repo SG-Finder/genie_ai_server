@@ -9,7 +9,7 @@ const matchingSpace = io.of('/matching');
 
 //redis module
 const redis = require('redis');
-const redisClient = redis.createClient(6379, '127.0.0.1');
+const redisClient = redis.createClient(6379, '192.168.0.23');
 
 // DB module
 const mysql = require('mysql');
