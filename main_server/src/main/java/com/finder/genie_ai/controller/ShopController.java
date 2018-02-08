@@ -119,10 +119,10 @@ public class ShopController {
     }
 
     @RequestMapping(value = "/{itemType}", method = RequestMethod.GET, produces = "application/json")
-    public BaseListItemModel getItemList(@RequestHeader String token,
-                                                        @PathVariable("itemType") String itemType,
-                                                        @RequestParam("count") String count,
-                                                        @RequestParam("cursor") String cursor) {
+    public BaseListItemModel getItemList(@RequestHeader("session-token") String token,
+                                         @PathVariable("itemType") String itemType,
+                                         @RequestParam("count") String count,
+                                         @RequestParam("cursor") String cursor) {
         if (!sessionTokenRedisRepository.isSessionValid(token)) {
             throw new UnauthorizedException();
         }
@@ -144,7 +144,7 @@ public class ShopController {
             System.out.println(Integer.parseInt(count));
             throw new BadRequestException("invalid data type");
         }
-        
+
         //Todo paging 처리
         if (itemType.equals("weapon")) {
             List<WeaponModel> list = weaponRepository.findAll();
