@@ -59,7 +59,6 @@ matchingSpace.on('connection', function (socket) {
 
                     let selectQuery = "SELECT * FROM players WHERE nickname='" + data.nickname + "'";
 
-
                     connection.query(selectQuery, function (err, result, field) {
                         if (err) {
                             socket.emit('getData', {
@@ -72,6 +71,7 @@ matchingSpace.on('connection', function (socket) {
 
                         player[socket.id] = result[0];
                         player[socket.id].socket_id = socket.id;
+                        player[socket.id].matchingActivate = false;
                         //connection.end();
                         socket.emit('getData', {
                             dataAccess : true,
@@ -109,13 +109,14 @@ matchingSpace.on('connection', function (socket) {
     });
 
     socket.on('gameStart', function () {
-        //TODO modulation && 동시에 접속했을 때의 이슈 && 매칭이 실패했을 때의 이슈
+        //TODO modulation && 동시에 접속했을 때의 이슈 && 매칭이 실패했을 때의 이슈 && 사용자의 수락 이벤트 핸들러
         //TODO 매칭 결과 redis에 저장
+        player[socket.id].matchingActivate = true;
         if (waitingPlayer.length !== 0) {
             let matchingResultData = {};
             let opponentPlayer = waitingPlayer.shift();
             matchingResultData.playersId = [player[socket.id].nickname, opponentPlayer.nickname];
-            matchingResultData.roomId = game.generateRoomId();
+            matchingResultData.roomId = game.generateRoomId(player[socket].nickname, opponentPlayer.nickname);
             game.saveMatchingResultRedis(redisClient, player[socket.id], opponentPlayer, matchingResultData.roomId);
             socket.emit('matchingResult', matchingResultData);
             matchingSpace.to(opponentPlayer.socket_id).emit('matchingResult', matchingResultData);
@@ -126,6 +127,7 @@ matchingSpace.on('connection', function (socket) {
     });
 
     socket.on('sendMessage', function (msg) {
+        console.log(msg);
         matchingSpace.to(gameLobbyA).emit('receiveMessage', {
             from: player[socket.id].nickname,
             message: msg.message
@@ -143,7 +145,16 @@ matchingSpace.on('connection', function (socket) {
                     leaveUserScore: player[socket.id].score,
                     leaveUserTier: player[socket.id].tier
                 });
-                //delete element in player object
+                //delete element in player object && deque from matching Que
+                if (player[socket.id].matchingActivate) {
+                    for (var i = 0; i < waitingPlayer.length; i++) {
+                        if (player.nickname === player[socket.id].nickname) {
+                            waitingPlayer.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+                //player를 delete 하기 때문에 matchingActivate를 비활성화 할 필요없음
                 delete player[socket.id];
                 console.log(player);
             });
