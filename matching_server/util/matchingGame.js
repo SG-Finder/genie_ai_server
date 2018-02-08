@@ -11,5 +11,6 @@ exports.isPresentGame = function (redisClient, matchingData) {
 };
 
 exports.generateRoomId = function (playerNicknameA, playerNicknameB) {
-    return btoa(playerNicknameA + playerNicknameB + new Date());
+    //TODO making room key
+    return new Date();
 };
