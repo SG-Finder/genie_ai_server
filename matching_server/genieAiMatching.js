@@ -153,7 +153,7 @@ matchingSpace.on('connection', function (socket) {
                 });
                 //delete element in player object && deque from matching Que
                 for (var i = 0; i < waitingPlayer.length; i++) {
-                    if (player.nickname === player[socket.id].nickname) {
+                    if (waitingPlayer[i].nickname === player[socket.id].nickname) {
                         waitingPlayer.splice(i, 1);
                         break;
                     }
