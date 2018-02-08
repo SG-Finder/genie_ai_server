@@ -117,7 +117,7 @@ matchingSpace.on('connection', function (socket) {
             let opponentPlayer = waitingPlayer.shift();
             //TODO 매칭 결과 데이터에 중복된 플레이어가 있을 경우의 이슈 처리
             matchingResultData.playersId = [player[socket.id].nickname, opponentPlayer.nickname];
-            matchingResultData.roomId = game.generateRoomId(player[socket].nickname, opponentPlayer.nickname);
+            matchingResultData.roomId = game.generateRoomId(player[socket.id].nickname, opponentPlayer.nickname);
             game.saveMatchingResultRedis(redisClient, player[socket.id], opponentPlayer, matchingResultData.roomId);
             socket.emit('matchingResult', matchingResultData);
             matchingSpace.to(opponentPlayer.socket_id).emit('matchingResult', matchingResultData);
