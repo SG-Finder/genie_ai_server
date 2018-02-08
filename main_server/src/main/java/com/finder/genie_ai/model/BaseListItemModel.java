@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class BaseListItemModel {
+public class BaseListItemModel<T extends BaseItemModel> {
 
-    private List<? extends BaseItemModel> datas;
+    private List<T> datas;
     private int cursor;
     private int count;
 

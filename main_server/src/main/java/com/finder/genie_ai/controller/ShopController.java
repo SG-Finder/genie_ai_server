@@ -126,30 +126,23 @@ public class ShopController {
         if (!sessionTokenRedisRepository.isSessionValid(token)) {
             throw new UnauthorizedException();
         }
-
-        if (count == null) {
-            throw new BadRequestException("empty count value");
-        }
-        boolean isEmptyCursor = (cursor == null);
-        int localCount, localCursor;
-        BaseListItemModel itemDatas = new BaseListItemModel();
+        int wantingCount, presentCursor;
 
         try {
-            if (!isEmptyCursor) {
-                localCursor = Integer.parseInt(cursor);
-                itemDatas.setCursor(localCursor);
-            }
+            wantingCount = Integer.parseInt(count);
+            presentCursor = Integer.parseInt(cursor);
         }
         catch (NumberFormatException e) {
             System.out.println(Integer.parseInt(count));
             throw new BadRequestException("invalid data type");
         }
-
+        BaseListItemModel<WeaponModel> itemDatas = new BaseListItemModel();
         //Todo paging 처리
         if (itemType.equals("weapon")) {
             List<WeaponModel> list = weaponRepository.findAll();
             itemDatas.setDatas(list);
             itemDatas.setCount(list.size());
+            itemDatas.setCursor(presentCursor + 1);
         }
 
         return itemDatas;
