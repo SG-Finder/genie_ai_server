@@ -10,6 +10,6 @@ public class BaseListItemModel<T extends BaseItemModel> {
 
     private List<T> datas;
     private int cursor;
-    private int count;
+    private int totalCount;
 
 }
