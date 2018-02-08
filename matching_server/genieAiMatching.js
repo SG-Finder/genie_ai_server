@@ -71,7 +71,7 @@ matchingSpace.on('connection', function (socket) {
 
                         player[socket.id] = result[0];
                         player[socket.id].socket_id = socket.id;
-                        player[socket.id].matchingActivate = false;
+                        //player[socket.id].matchingActivate = false;
                         //connection.end();
                         socket.emit('getData', {
                             dataAccess : true,
@@ -111,7 +111,7 @@ matchingSpace.on('connection', function (socket) {
     socket.on('gameStart', function () {
         //TODO modulation && 동시에 접속했을 때의 이슈 && 매칭이 실패했을 때의 이슈 && 사용자의 수락 이벤트 핸들러
         //TODO 매칭 결과 redis에 저장
-        player[socket.id].matchingActivate = true;
+        //player[socket.id].matchingActivate = true;
         if (waitingPlayer.length !== 0) {
             let matchingResultData = {};
             let opponentPlayer = waitingPlayer.shift();
@@ -125,6 +125,11 @@ matchingSpace.on('connection', function (socket) {
         else {
             waitingPlayer[waitingPlayer.length] = player[socket.id];
         }
+    });
+
+    //TODO develop cancel matching
+    socket.on('cancelMatching', function (data) {
+
     });
 
     socket.on('sendMessage', function (msg) {
@@ -147,14 +152,15 @@ matchingSpace.on('connection', function (socket) {
                     leaveUserTier: player[socket.id].tier
                 });
                 //delete element in player object && deque from matching Que
-                if (player[socket.id].matchingActivate) {
-                    for (var i = 0; i < waitingPlayer.length; i++) {
-                        if (player.nickname === player[socket.id].nickname) {
-                            waitingPlayer.splice(i, 1);
-                            break;
-                        }
+                for (var i = 0; i < waitingPlayer.length; i++) {
+                    if (player.nickname === player[socket.id].nickname) {
+                        waitingPlayer.splice(i, 1);
+                        break;
                     }
                 }
+                // if (player[socket.id].matchingActivate) {
+                //
+                // }
                 //player를 delete 하기 때문에 matchingActivate를 비활성화 할 필요없음
                 delete player[socket.id];
                 console.log(player);
