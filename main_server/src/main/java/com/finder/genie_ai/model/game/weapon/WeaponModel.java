@@ -1,5 +1,6 @@
 package com.finder.genie_ai.model.game.weapon;
 
+import com.finder.genie_ai.model.game.BaseItemModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "weapons")
 @Data
-public class WeaponModel {
+public class WeaponModel  extends BaseItemModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -10,6 +10,8 @@ import com.finder.genie_ai.dto.PlayerWeaponDTO;
 import com.finder.genie_ai.dto.ShopDealDTO;
 import com.finder.genie_ai.exception.BadRequestException;
 import com.finder.genie_ai.exception.UnauthorizedException;
+import com.finder.genie_ai.model.BaseListItemModel;
+import com.finder.genie_ai.model.game.BaseItemModel;
 import com.finder.genie_ai.model.game.item_relation.WeaponRelation;
 import com.finder.genie_ai.model.game.player.PlayerModel;
 import com.finder.genie_ai.model.game.weapon.WeaponModel;
@@ -116,4 +118,40 @@ public class ShopController {
         return shopDealDTO;
     }
 
+    @RequestMapping(value = "/{itemType}", method = RequestMethod.GET, produces = "application/json")
+    public BaseListItemModel getItemList(@RequestHeader String token,
+                                                        @PathVariable("itemType") String itemType,
+                                                        @RequestParam("count") String count,
+                                                        @RequestParam("cursor") String cursor) {
+        if (!sessionTokenRedisRepository.isSessionValid(token)) {
+            throw new UnauthorizedException();
+        }
+
+        if (count == null) {
+            throw new BadRequestException("empty count value");
+        }
+        boolean isEmptyCursor = (cursor == null);
+        int localCount, localCursor;
+        BaseListItemModel itemDatas = new BaseListItemModel();
+
+        try {
+            if (!isEmptyCursor) {
+                localCursor = Integer.parseInt(cursor);
+                itemDatas.setCursor(localCursor);
+            }
+        }
+        catch (NumberFormatException e) {
+            System.out.println(Integer.parseInt(count));
+            throw new BadRequestException("invalid data type");
+        }
+        
+        //Todo paging 처리
+        if (itemType.equals("weapon")) {
+            List<WeaponModel> list = weaponRepository.findAll();
+            itemDatas.setDatas(list);
+            itemDatas.setCount(list.size());
+        }
+
+        return itemDatas;
+    }
 }
